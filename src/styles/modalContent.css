@@ -1,0 +1,84 @@
+.dev form.plugin-dates-defaults {
+  max-width: 1024px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+form.plugin-dates-defaults,
+.plugin-dates-defaults .content {
+  display: flex;
+  flex-direction: column;
+}
+
+.plugin-dates-defaults .content {
+  gap: 1rem;
+}
+
+.plugin-dates-defaults .settings-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 0.5rem;
+  border: 1px #dae3f2 solid;
+  background-color: #f8f9fc;
+}
+
+.mode-dark .plugin-dates-defaults .settings-field {
+  background-color: #020617;
+  border-color: #1e293b;
+}
+
+.plugin-dates-defaults .settings-field .delete {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  z-index: 10;
+}
+
+.plugin-dates-defaults .settings-field .delete svg {
+  height: 0.875rem;
+  color: #141046;
+  opacity: 50%;
+}
+
+.mode-dark .plugin-dates-defaults .settings-field .delete svg {
+  color: #e5e7eb;
+}
+
+.plugin-dates-defaults .settings-field .delete button:hover:not(:disabled) svg {
+  opacity: 100%;
+}
+
+.plugin-dates-defaults .settings-field .inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  padding: 0.875rem;
+}
+
+@media (min-width: 768px) {
+  .plugin-dates-defaults .settings-field .inputs {
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+}
+
+.plugin-dates-defaults .buttons {
+  width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 2.5rem;
+  border: 0 solid #eeeef4;
+  border-top-width: 1px;
+  background-color: white;
+}
+
+.mode-dark .plugin-dates-defaults .buttons {
+  border-color: #1e293b;
+  background-color: #111827;
+}

@@ -1,42 +1,42 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import ShinyRow from "./ShinyRow";
-import {
-  addElementToCache,
-  getCachedElement,
-  registerFn,
-} from "./plugin-helpers";
+import { registerFn } from "./common/plugin-helpers";
+import { handleManagePlugin, loadManagePlugin } from "./plugins/managePlugin";
+import { handleFormFieldConfig } from "./plugins/formFieldConfig";
 import pluginInfo from "./plugin-manifest.json";
 
-const updateApp = (root, data) => {
-  root.render(<ShinyRow data={data} />);
-};
+/* eslint import/no-webpack-loader-syntax: off */
+import cssString from "!!raw-loader!./styles/index.css";
+import cssButtonString from "!!raw-loader!./styles/button.css";
+import cssModalString from "!!raw-loader!./styles/modalContent.css";
+import cssDropdownString from "!!raw-loader!./styles/dropdown.css";
+import cssInputString from "!!raw-loader!./styles/input.css";
 
-const initApp = (div, data) => {
-  const root = ReactDOM.createRoot(div);
-  updateApp(root, data);
-  return root;
-};
-
-registerFn(pluginInfo, (handler) => {
-  handler.on(
-    "flotiq.grid.cell::render",
-    ({ data, accessor, contentTypeName, contentObject }) => {
-      if (accessor !== "title") return null;
-      const key = `${contentTypeName}-${contentObject.id}-${accessor}`;
-      const cachedApp = getCachedElement(key);
-      if (cachedApp) {
-        updateApp(cachedApp.root, data);
-        return cachedApp.element;
-      }
-
-      const div = document.createElement("div");
-      addElementToCache(div, initApp(div, data), key);
-      return div;
+const loadStyles = () => {
+    if (!document.getElementById(`${pluginInfo.id}-styles`)) {
+        const style = document.createElement("style");
+        style.id = `${pluginInfo.id}-styles`;
+        style.textContent =
+            cssString +
+            cssButtonString +
+            cssModalString +
+            cssDropdownString +
+            cssInputString;
+        document.head.appendChild(style);
     }
-  );
+};
+
+registerFn(pluginInfo, (handler, client, { toast, getLanguage }) => {
+    loadStyles();
+    handler.on("flotiq.plugins.manage::render", (data) =>
+        handleManagePlugin(data, pluginInfo, client, toast, getLanguage)
+    );
+    handler.on("flotiq.form.field::config", (data) =>
+        handleFormFieldConfig(data, pluginInfo)
+    );
 });
 
-const puginPreviewRoot = document.getElementById("plugin-preview-root");
+const pluginManagePreviewRoot = document.getElementById("manage-preview-root");
 
-if (puginPreviewRoot) initApp(puginPreviewRoot, "Hello World!");
+if (pluginManagePreviewRoot) {
+    loadStyles();
+    loadManagePlugin(pluginManagePreviewRoot);
+}

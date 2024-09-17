@@ -1,8 +1,15 @@
 {
-  "id": "flotiq.react-template",
-  "name": "React Template Plugin",
-  "version": "0.1.2",
-  "description": "A react-based example of Flotiq plugin. This will render a shiny title instead of regular title fields",
-  "repository": "https://github.com/flotiq/flotiq-ui-plugins-templates-react",
-  "url": "https://localhost:3050/static/js/bundle.js"
+  "id": "ciotka-cierpienia.dates-defaults",
+  "name": "Relative default dates in objects",
+  "version": "1.0.0",
+  "description": "Plugin for automatic generating relative dates when creating now content objects",
+  "repository": "https://github.com/CiotkaCierpienia/flotiq-ui-plugins-dates-defaults",
+  "url": "https://localhost:3050/static/js/bundle.js",
+  "permissions": [
+    {
+      "ctdName": "_plugin_settings",
+      "canUpdate": true,
+      "type": "CO"
+    }
+  ]
 }

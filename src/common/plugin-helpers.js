@@ -25,3 +25,8 @@ export const registerFn = (pluginInfo, callback) => {
   if (!window.initFlotiqPlugins) window.initFlotiqPlugins = [];
   window.initFlotiqPlugins.push({ pluginInfo, callback });
 };
+
+export const removeRoot = (key) => {
+  delete appRoots[key];
+};
+
